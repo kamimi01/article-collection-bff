@@ -174,7 +174,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/article-collection/dev/1618846700880-2021-04-19T15:38:20.880Z/article-collection.zip"
+                "S3Key": "serverless/article-collection/dev/1618851748604-2021-04-19T17:02:28.604Z/article-collection.zip"
               },
               "Handler": "lambda.handler",
               "Runtime": "nodejs14.x",
@@ -192,14 +192,14 @@
               "ServerlessTestLogGroup"
             ]
           },
-          "ServerlessTestLambdaVersionCksg5WiQpdADFdDw5NGDxlxCPYL1sKq370WfF8MnlA": {
+          "ServerlessTestLambdaVersionCT0qDky7ayYpBQeBf2bm1dyiw9WvbUJDvQbktUz4": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ServerlessTestLambdaFunction"
               },
-              "CodeSha256": "DWgDCwyumc0/nF1BipWuz/H3vDqTAsRsGAdY71edPZg="
+              "CodeSha256": "V+twG968n/CCVJTNy50RXE8noAXo1y+OEBwrvhk4zII="
             }
           },
           "ApiGatewayRestApi": {
@@ -318,7 +318,7 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayDeployment1618846698578": {
+          "ApiGatewayDeployment1618851745695": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -378,7 +378,7 @@
           "ServerlessTestLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ServerlessTestLambdaVersionCksg5WiQpdADFdDw5NGDxlxCPYL1sKq370WfF8MnlA"
+              "Ref": "ServerlessTestLambdaVersionCT0qDky7ayYpBQeBf2bm1dyiw9WvbUJDvQbktUz4"
             }
           },
           "ServiceEndpoint": {
@@ -508,7 +508,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "ServerlessTestLambdaVersionCksg5WiQpdADFdDw5NGDxlxCPYL1sKq370WfF8MnlA"
+        "versionLogicalId": "ServerlessTestLambdaVersionCT0qDky7ayYpBQeBf2bm1dyiw9WvbUJDvQbktUz4"
       }
     },
     "configValidationMode": "warn",
@@ -528,7 +528,7 @@
           "README.md"
         ],
         "artifact": "/Users/mikaurakawa/Desktop/Node_Projects/article-collection-bff/src/.serverless/article-collection.zip",
-        "artifactDirectoryName": "serverless/article-collection/dev/1618846700880-2021-04-19T15:38:20.880Z"
+        "artifactDirectoryName": "serverless/article-collection/dev/1618851748604-2021-04-19T17:02:28.604Z"
       },
       "functions": {
         "$ref": "$[\"service\"][\"functions\"]"
@@ -538,7 +538,7 @@
     "artifact": "/Users/mikaurakawa/Desktop/Node_Projects/article-collection-bff/src/.serverless/article-collection.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/article-collection/dev/1618846700880-2021-04-19T15:38:20.880Z",
+    "artifactDirectoryName": "serverless/article-collection/dev/1618851748604-2021-04-19T17:02:28.604Z",
     "artifact": "article-collection.zip"
   }
 }
