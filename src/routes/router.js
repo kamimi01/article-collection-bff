@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.json({ message: "Hello World!" });
-});
-router.get("/users", (req, res) => {
-  res.json([{ name: "Taro" }, { name: "Hanako" }]);
+router.get("/articles", (req, res) => {
+  const qiitaUserName = req.query.qiitaUserName
+  const noteUserName = req.query.noteUserName
+  res.json({ message: noteUserName });
 });
 
 module.exports = router;
