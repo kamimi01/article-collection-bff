@@ -1,0 +1,19 @@
+service: article-collection
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ap-northeast-1
+
+package:
+  exclude:
+    - .git/**
+    - test/**
+    - README.md
+
+functions:
+  serverlessTest:
+    handler: lambda.handler
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
