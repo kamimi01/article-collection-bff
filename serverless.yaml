@@ -6,13 +6,19 @@ provider:
   region: ap-northeast-1
 
 package:
+  include:
+    - dist/**
   exclude:
-    - .git/**
+    - src/**
     - test/**
+    - .git/**
+    - .gitignore
+    - .vscode/**
     - README.md
+    - tsconfig.json
 
 functions:
   serverlessTest:
-    handler: lambda.handler
+    handler: dist/lambda.handler
     events:
       - http: GET articles

@@ -1,11 +1,11 @@
-const express = require("express");
-const router = express.Router();
+import express from "express";
 const webclient = require("request");
+export const router = express.Router();
 
 router.get("/articles", (req, res) => {
   const qiitaUserName = req.query.qiitaUserName;
   const noteUserName = req.query.noteUserName;
-  let response;
+  // let response;
 
   // QiitaのAPIを叩く
   const qiitaBaseApi =
@@ -19,9 +19,9 @@ router.get("/articles", (req, res) => {
         noteUserName: noteUserName,
       },
     },
-    function (error, response, body) {
+    function (error: Error, response: Response, body: Body) {
       // console.log(response.user);
-      console.log(typeof response);
+      console.log(typeof response, typeof error, typeof body);
     }
   );
 
@@ -42,4 +42,4 @@ router.get("/articles", (req, res) => {
   });
 });
 
-module.exports = router;
+// module.exports = router;
