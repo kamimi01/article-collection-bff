@@ -9,4 +9,8 @@
 
 ## デプロイ
 
-1. `sls deploy`を行う
+1. `node_modules`を削除する
+2. `yarn install --production`を実行する
+  - `devDependencies`がインストールされない
+  - `node_moduels`はサイズが大きくなりがちなため、不要なモジュールのインストールは避ける
+3. `sls deploy`を行う
