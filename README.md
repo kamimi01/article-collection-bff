@@ -5,7 +5,7 @@
 - `@vendia/serverless-express`を導入する
   - `yarn add @vendia/serverless-express`
 - `serverless.yml`を作成する
-- `src`下で`npm install`を行う
+- `src`下で`yarn install`を行う
 
 ## デプロイ
 

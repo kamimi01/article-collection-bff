@@ -7,15 +7,18 @@ provider:
 
 package:
   include:
-    - src/**
+    - dist/**
   exclude:
+    - src/**
     - test/**
     - .git/**
     - .gitignore
+    - .vscode/**
     - README.md
+    - tsconfig.json
 
 functions:
   serverlessTest:
-    handler: src/lambda.handler
+    handler: dist/lambda.handler
     events:
       - http: GET articles
