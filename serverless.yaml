@@ -6,13 +6,16 @@ provider:
   region: ap-northeast-1
 
 package:
+  include:
+    - src/**
   exclude:
-    - .git/**
     - test/**
+    - .git/**
+    - .gitignore
     - README.md
 
 functions:
   serverlessTest:
-    handler: lambda.handler
+    handler: src/lambda.handler
     events:
       - http: GET articles
