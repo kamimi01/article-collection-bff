@@ -1,1 +1,4 @@
-src/node_modules/
+# コンパイルのアウトプット
+dist/
+node_modules/
+.serverless/
