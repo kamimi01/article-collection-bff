@@ -19,6 +19,6 @@ package:
 
 functions:
   serverlessTest:
-    handler: dist/lambda.handler
+    handler: dist/bin/www/lambda.handler
     events:
       - http: GET articles
