@@ -11,10 +11,8 @@ export default class ArticlesController {
 
     if (qiitaUserName === undefined && noteUserName === undefined) {
       const response = {
-        errors: {
-          type: "no_parameters",
-          message: "At least one prameter is required",
-        },
+        message: "At least one prameter is required",
+        type: "no_parameters",
       };
       return res.status(400).json(response);
     }
