@@ -1,6 +1,5 @@
+const fetch = require("node-fetch");
 import { ArticlesConst } from "./constant";
-
-const webclient = require("request");
 
 export const getArticles = (params: Map<string, string>) => {
   const qiitaUserName = params.get(ArticlesConst.QIITA_USER_NAME);
@@ -12,19 +11,12 @@ export const getArticles = (params: Map<string, string>) => {
   const qiitaBaseApi =
     "https://qiita.com/api/v2/users/" + qiitaUserName + "/items";
 
-  webclient.get(
-    {
-      url: qiitaBaseApi,
-      qs: {
-        qiitaUserName: qiitaUserName,
-        noteUserName: noteUserName,
-      },
-    },
-    function (error: Error, response: Response, body: Body) {
-      // console.log(response.user);
-      console.log(typeof response, typeof error, typeof body);
-    }
-  );
+  (async () => {
+    const response = await fetch(qiitaBaseApi);
+    const json = await response.json();
+    console.log(json)
+    return await json
+  })();
 
   const resJson = {
     articleContents: [
