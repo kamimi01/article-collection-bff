@@ -1,46 +1,72 @@
+const fetch = require("node-fetch");
 import { ArticlesConst } from "./constant";
 
-const webclient = require("request");
-
-export const getArticles = (params: Map<string, string>) => {
+export const getArticles = async (params: Map<string, string>) => {
   const qiitaUserName = params.get(ArticlesConst.QIITA_USER_NAME);
   const noteUserName = params.get(ArticlesConst.NOTE_USER_NAME);
-
-  // let response;
 
   // QiitaのAPIを叩く
   const qiitaBaseApi =
     "https://qiita.com/api/v2/users/" + qiitaUserName + "/items";
 
-  webclient.get(
-    {
-      url: qiitaBaseApi,
-      qs: {
-        qiitaUserName: qiitaUserName,
-        noteUserName: noteUserName,
-      },
+  const response = await fetch(qiitaBaseApi);
+  const json = await response.json();
+
+  interface qiitaResponse {
+    title: string,
+    user: {
+      id: string,
+      profile_image_url: string
     },
-    function (error: Error, response: Response, body: Body) {
-      // console.log(response.user);
-      console.log(typeof response, typeof error, typeof body);
+    likes_count: number,
+    url: string,
+    created_at: string
+  }
+
+  interface apiResponse {
+    service: string,
+    title: string,
+    userName: string,
+    numOfGood: number,
+    profileImageUrl: string,
+    url: string,
+    createdDate: string,
+  }
+
+  // console.log(json[0].title)
+
+  let articleContentsArray: [apiResponse] = [{
+    service: "",
+    title: "",
+    userName: "",
+    numOfGood: 0,
+    profileImageUrl: "",
+    url: "",
+    createdDate: "",
+  }]
+
+  json.forEach((value: qiitaResponse, index: number) => {
+    const response: apiResponse = {
+      service: "qiita",
+      title: value.title,
+      userName: value.user.id,
+      numOfGood: value.likes_count,
+      profileImageUrl: value.user.profile_image_url,
+      url: value.url,
+      createdDate: value.created_at,
     }
-  );
+    if (index === 1) {
+      articleContentsArray = [response]
+    } else {
+      articleContentsArray.push(response)
+    }
+  });
+
+  // console.log(articleContentsArray)
 
   const resJson = {
-    articleContents: [
-      {
-        service: "qiita",
-        title:
-          "色んな人向けにバーチャルSNS - cluster - に関するリンクを広く浅くまとめてみた",
-        userName: "kamimi01",
-        numOfGood: 1,
-        profileImageUrl:
-          "https://avatars1.githubusercontent.com/u/47489629?v=4",
-        url: "https://qiita.com/kamimi01/items/353ed9502ed62cbe9864",
-        createdDate: "2020-12-24T12:06:44+09:00",
-      },
-    ],
+    articleContents: articleContentsArray
   };
 
-  return resJson;
+  return resJson
 };
