@@ -1,5 +1,9 @@
 # article-collection-bff
 
+## API仕様書
+
+- [こちら](https://kamimi01.github.io/article-collection-architecture/)で公開中
+
 ## 環境構築
 
 - `@vendia/serverless-express`を導入する
