@@ -5,7 +5,7 @@ import { ArticlesConst } from "../models/constant";
 export default class ArticlesController {
   constructor() {}
 
-  doGetArticles = (req: Request, res: Response) => {
+  doGetArticles = async (req: Request, res: Response) => {
     const qiitaUserName = req.query.qiitaUserName as string;
     const noteUserName = req.query.noteUserName as string;
 
@@ -14,7 +14,7 @@ export default class ArticlesController {
       [ArticlesConst.NOTE_USER_NAME, noteUserName],
     ]);
 
-    const resJson = getArticles(paramsMap);
+    const resJson = await getArticles(paramsMap);
 
     res.json(resJson);
   };
