@@ -1,5 +1,6 @@
 import express from "express";
 export const router = express.Router();
-import { doGetArticles } from "../controllers/articleController";
+import ArticlesController from "../controllers/articleController";
 
-router.get("/", doGetArticles);
+const articlesCtl = new ArticlesController();
+router.get("/", articlesCtl.doGetArticles);
