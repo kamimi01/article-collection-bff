@@ -2,12 +2,11 @@ const fetch = require("node-fetch");
 import { ArticlesConst } from "./constant";
 
 export const getArticles = async (params: Map<string, string>) => {
-  const qiitaUserName = params.get(ArticlesConst.QIITA_USER_NAME);
-  const noteUserName = params.get(ArticlesConst.NOTE_USER_NAME);
+  const userName = params.get(ArticlesConst.USER_NAME);
 
   // QiitaのAPIを叩く
   const qiitaBaseApi =
-    "https://qiita.com/api/v2/users/" + qiitaUserName + "/items";
+    "https://qiita.com/api/v2/users/" + userName + "/items";
 
   const response = await fetch(qiitaBaseApi);
   const json = await response.json();
