@@ -4,6 +4,17 @@ provider:
   name: aws
   runtime: nodejs14.x
   region: ap-northeast-1
+  logRetentionInDays: 14 # CloudWatch Logsのログ保持日数
+  apiKeys: 
+    - free-plan-key
+  usagePlan:
+    quota:
+      limit: 1000 # API の呼び出しを行える最大回数
+      offset: 0 # API の呼び出し回数の初期値（通常は 0 回を指定する）
+      period: DAY # DAY or WEEK or MONTH
+    throttle:
+      rateLimit: 2 # 1 秒あたりに処理できる API リクエスト数
+      burstLimit: 3 # 同時に処理できる最大リクエスト数
 
 package:
   include:
@@ -21,4 +32,7 @@ functions:
   serverlessTest:
     handler: dist/bin/www/lambda.handler
     events:
-      - http: GET articles
+      - http:
+          path: articles
+          method: GET
+          private: true # APIキーを有効にする

@@ -6,10 +6,9 @@ export default class ArticlesController {
   constructor() {}
 
   doGetArticles = async (req: Request, res: Response) => {
-    const qiitaUserName = req.query.qiitaUserName as string;
-    const noteUserName = req.query.noteUserName as string;
+    const userName = req.query.userName as string;
 
-    if (qiitaUserName === undefined && noteUserName === undefined) {
+    if (userName === undefined) {
       const response = {
         message: "At least one prameter is required",
         type: "no_parameters",
@@ -17,10 +16,7 @@ export default class ArticlesController {
       return res.status(400).json(response);
     }
 
-    const paramsMap = new Map([
-      [ArticlesConst.QIITA_USER_NAME, qiitaUserName],
-      [ArticlesConst.NOTE_USER_NAME, noteUserName],
-    ]);
+    const paramsMap = new Map([[ArticlesConst.USER_NAME, userName]]);
 
     const resJson = await getArticles(paramsMap);
 
