@@ -12,6 +12,7 @@ export const getArticles = async (params: Map<string, string>) => {
   const json = await response.json();
 
   interface qiitaResponse {
+    id: string,
     title: string,
     user: {
       id: string,
@@ -23,6 +24,7 @@ export const getArticles = async (params: Map<string, string>) => {
   }
 
   interface apiResponse {
+    id: string,
     service: string,
     title: string,
     userName: string,
@@ -35,6 +37,7 @@ export const getArticles = async (params: Map<string, string>) => {
   // console.log(json[0].title)
 
   let articleContentsArray: [apiResponse] = [{
+    id: "",
     service: "",
     title: "",
     userName: "",
@@ -46,6 +49,7 @@ export const getArticles = async (params: Map<string, string>) => {
 
   json.forEach((value: qiitaResponse, index: number) => {
     const response: apiResponse = {
+      id: value.id,
       service: "qiita",
       title: value.title,
       userName: value.user.id,
