@@ -1,40 +1,47 @@
 const fetch = require("node-fetch");
 import { ArticlesConst } from "./constant";
 
-export const getArticles = async (params: Map<string, string>) => {
-  const userName = params.get(ArticlesConst.USER_NAME);
+interface qiitaResponse {
+  id: string;
+  title: string;
+  user: {
+    id: string;
+    profile_image_url: string;
+  };
+  likes_count: number;
+  url: string;
+  created_at: string;
+}
 
-  // QiitaのAPIを叩く
-  const qiitaBaseApi =
-    "https://qiita.com/api/v2/users/" + userName + "/items";
+interface apiResponse {
+  articleContents: {
+    id: string;
+    service: string;
+    title: string;
+    userName: string;
+    likesCount: number;
+    profileImageUrl: string;
+    url: string;
+    createdDate: string;
+  };
+}
 
-  const response = await fetch(qiitaBaseApi);
-  const json = await response.json();
+interface apiArticleContentsResponse {
+  id: string;
+  service: string;
+  title: string;
+  userName: string;
+  likesCount: number;
+  profileImageUrl: string;
+  url: string;
+  createdDate: string;
+}
 
-  interface qiitaResponse {
-    title: string,
-    user: {
-      id: string,
-      profile_image_url: string
-    },
-    likes_count: number,
-    url: string,
-    created_at: string
-  }
+// console.log(json[0].title)
 
-  interface apiResponse {
-    service: string,
-    title: string,
-    userName: string,
-    likesCount: number,
-    profileImageUrl: string,
-    url: string,
-    createdDate: string,
-  }
-
-  // console.log(json[0].title)
-
-  let articleContentsArray: [apiResponse] = [{
+let articleContentsArray: [apiArticleContentsResponse] = [
+  {
+    id: "",
     service: "",
     title: "",
     userName: "",
@@ -42,10 +49,36 @@ export const getArticles = async (params: Map<string, string>) => {
     profileImageUrl: "",
     url: "",
     createdDate: "",
-  }]
+  },
+];
+
+let articleContentJson = {
+  articleContents: articleContentsArray,
+};
+
+export const getArticles = async (params: Map<string, string>) => {
+  // レスポンスの型
+  let fetchResult = { result: false, resJson: articleContentJson };
+
+  const userName = params.get(ArticlesConst.USER_NAME);
+
+  // QiitaのAPIを叩く
+  const qiitaBaseApi = "https://qiita.com/api/v2/users/" + userName + "/items";
+
+  const response = await fetch(qiitaBaseApi);
+  const json = await response.json();
+
+  const status = response.status;
+  const isSuccess = status >= 200 && status < 300;
+
+  // ステータスが200台ではない、または200だがJSONの中身が空の場合
+  if (!isSuccess || json.length === 0) {
+    return fetchResult;
+  }
 
   json.forEach((value: qiitaResponse, index: number) => {
-    const response: apiResponse = {
+    const response: apiArticleContentsResponse = {
+      id: value.id,
       service: "qiita",
       title: value.title,
       userName: value.user.id,
@@ -53,19 +86,20 @@ export const getArticles = async (params: Map<string, string>) => {
       profileImageUrl: value.user.profile_image_url,
       url: value.url,
       createdDate: value.created_at,
-    }
+    };
     if (index === 1) {
-      articleContentsArray = [response]
+      articleContentsArray = [response];
     } else {
-      articleContentsArray.push(response)
+      articleContentsArray.push(response);
     }
   });
 
-  // console.log(articleContentsArray)
-
   const resJson = {
-    articleContents: articleContentsArray
+    articleContents: articleContentsArray,
   };
 
-  return resJson
+  fetchResult["result"] = true;
+  fetchResult["resJson"] = resJson;
+
+  return fetchResult;
 };

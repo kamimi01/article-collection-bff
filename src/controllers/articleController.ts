@@ -18,7 +18,17 @@ export default class ArticlesController {
 
     const paramsMap = new Map([[ArticlesConst.USER_NAME, userName]]);
 
-    const resJson = await getArticles(paramsMap);
+    const fetchResult = await getArticles(paramsMap);
+
+    if (!fetchResult["result"]) {
+      const response = {
+        message: "Not found",
+        type: "not_found",
+      };
+      return res.status(404).json(response);
+    }
+
+    const resJson = fetchResult["resJson"];
 
     return res.json(resJson);
   };
