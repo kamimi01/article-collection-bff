@@ -68,11 +68,11 @@ export const getArticles = async (params: Map<string, string>) => {
   const response = await fetch(qiitaBaseApi);
   const json = await response.json();
 
-  const status = response.status;
-  const isSuccess = status >= 200 && status < 300;
+  const statusForQiita = response.status;
+  const isSuccessForQiita = statusForQiita >= 200 && statusForQiita < 300;
 
   // ステータスが200台ではない、または200だがJSONの中身が空の場合
-  if (!isSuccess || json.length === 0) {
+  if (!isSuccessForQiita || json.length === 0) {
     return fetchResult;
   }
 
