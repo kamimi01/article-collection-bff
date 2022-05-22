@@ -1,3 +1,1 @@
-export namespace ArticlesConst {
-  export const USER_NAME = "userName";
-}
+export const USER_NAME = "userName"
